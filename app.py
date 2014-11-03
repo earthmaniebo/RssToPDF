@@ -1,7 +1,22 @@
 import os
-import pdfkit
 import requests
+# from xhtml2pdf import pisa
 import xml.etree.ElementTree as ET
+
+
+# Utility function
+def convertHtmlToPdf(sourceHtml, outputFilename):
+    # open output file for writing (truncated binary)
+    resultFile = open(outputFilename, "w+b")
+
+    # convert HTML to PDF
+    pisaStatus = pisa.CreatePDF(sourceHtml, dest=resultFile)
+
+    # close output file
+    resultFile.close()
+
+    # return True on success and False on errors
+    return pisaStatus.err
 
 # URL of RSS/Atom Feed
 url = 'http://www.inquirer.net/fullfeed'
@@ -16,34 +31,28 @@ resp = requests.get(url)
 # xml_doc = ET.fromstring(resp.content)
 xml_doc = ET.parse('test.xml')
 
-# Nested dictionary to store news
+# List of dictionaries to store news
 news = []
-indentifier_str =  'headline'
-counter = 0
 
+# Iterate over the item/entry tag
+# <item> for RSS and <entry for Atom
 for entity in xml_doc.iter('item'):
-    
-    # Generate the unique name of the index
-    counter = counter + 1
-    index = indentifier_str + str(counter)
+    # Store data from XML to variables
+    title       = entity.find('title').text
+    link        = entity.find('link').text
+    pubDate     = entity.find('pubDate').text
+    description = entity.find('description').text
 
-    # Dictionary to store inside the news dictionary
-    title       = entity.find("title").text
-    link        = entity.find("link").text
-    pubDate     = entity.find("pubDate").text
-    description = entity.find("description").text
-
+    # Create dictionary and store the data
     headline = {
-        'title' : title,
-        'link' : link,
-        'pubDate' : pubDate,
-        'description' : description
+        'title'         : title,
+        'link'          : link,
+        'pubDate'       : pubDate,
+        'description'   : description
     }
 
+    # Add the dictionary to the list
     news.append(headline)
 
-for d in news:
-
-
-
-# pdfkit.from_url('http://www.inquirer.net/fullfeed', 'out.pdf')
+for article in news:
+    print article['description']
