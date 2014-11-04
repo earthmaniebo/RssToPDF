@@ -57,4 +57,4 @@ for feed in feeds:
                   message      = 'Howdy from a python function',
                   pdf_file     = output_filename,
                   login        = 'earthmaniebo', 
-                  password     = '[Elderwand101]')
+                  password     = 'thisissp@rt@')
