@@ -1,6 +1,6 @@
 import os
 import requests
-# from xhtml2pdf import pisa
+from xhtml2pdf import pisa
 import xml.etree.ElementTree as ET
 
 
@@ -56,3 +56,9 @@ for entity in xml_doc.iter('item'):
 
 for article in news:
     print article['description']
+
+sourceHtml = "<html><body><p>To PDF or not to PDF<p></body></html>"
+srcHtml = 'test.html'
+outputFilename = "test.pdf"
+
+convertHtmlToPdf(srcHtml, outputFilename)
