@@ -43,7 +43,68 @@ for feed in feeds:
         description = entity.find('description').text
 
         source_html = """
-            <html><body><p>To PDF or not to PDF<p></body></html>
+            <html>
+            <head>
+                <style type="text/css">
+                    h1 {
+                        color:red;
+                    }
+                    body {
+                        margin: 100px;
+                    }
+                    td, p{
+                        font-size: 16px;
+                    }
+                    #article{
+                    }
+                    #label{
+                        color:#59C;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+                    a{
+                    color: #000;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="article">  
+                    <table>
+                        <tr>
+                            <td id="label">
+                                Date: 
+                            </td>
+                            <td>""" + pubDate + """</td>
+                        </tr>
+                        <tr>
+                            <td id="label">
+                                Classification: 
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td id="label">
+                                Publication: 
+                            </td>
+                            <td>""" + title + """</td>
+                        </tr>
+                        <tr>
+                            <td id="label">
+                                Title:
+                            </td>
+                            <td>""" + title + """</td>
+                        </tr>
+                        <tr>
+                            <td id="label">
+                                Writer
+                            </td>
+                            <td>""" + title + """</td>
+                        </tr>
+                    </table>
+                    <p>""" + description + """</p>
+            </body>
+            </html>
         """
         srcHtml = 'test.html'
         output_filename = title + '.pdf'
